@@ -58,6 +58,7 @@ void AndroidDesktop::stop() {
     ALOGV("Shutting down");
 
     mServer->setPixelBuffer(0);
+    mPixels->reset();
 
     mVirtualDisplay.clear();
     mPixels.clear();
@@ -145,7 +146,8 @@ void AndroidDesktop::pointerEvent(const rfb::Point& pos, int buttonMask) {
         // outside viewport
         return;
     }
-    uint32_t x = pos.x * ((float)(mDisplayRect.getWidth()) / (float)mPixels->width());
+    uint32_t spaceX = abs(((float)(mDisplayRect.getWidth() - mPixels->width())) / 2);
+    uint32_t x = pos.x - spaceX;
     uint32_t y = pos.y * ((float)(mDisplayRect.getHeight()) / (float)mPixels->height());
 
     ALOGV("pointer xlate x1=%d y1=%d x2=%d y2=%d", pos.x, pos.y, x, y);
@@ -167,6 +169,7 @@ status_t AndroidDesktop::updateDisplayInfo() {
         ALOGE("Failed to get display characteristics\n");
         return err;
     }
+    ALOGV("updateDisplayInfo: [%d:%d]", mDisplayInfo.w, mDisplayInfo.h);
 
     mPixels->setDisplayInfo(&mDisplayInfo);
 
