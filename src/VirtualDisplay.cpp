@@ -57,7 +57,7 @@ VirtualDisplay::VirtualDisplay(ui::DisplayMode* mode, ui::DisplayState* state,
     SurfaceComposerClient::Transaction t;
     t.setDisplaySurface(mDisplayToken, mProducer);
     t.setDisplayProjection(mDisplayToken, state->orientation, mSourceRect, displayRect);
-    t.setDisplayLayerStack(mDisplayToken, 0);  // default stack
+    t.setDisplayLayerStack(mDisplayToken, ui::DEFAULT_LAYER_STACK);  // default stack
     t.apply();
 
     ALOGV("Virtual display (%ux%u [viewport=%ux%u] created", width, height, displayRect.getWidth(),
