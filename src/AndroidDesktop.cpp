@@ -156,7 +156,8 @@ void AndroidDesktop::pointerEvent(const rfb::Point& pos, int buttonMask) {
 
 // refresh the display dimensions
 status_t AndroidDesktop::updateDisplayInfo() {
-    const auto displayToken = SurfaceComposerClient::getInternalDisplayToken();
+    const auto ids = SurfaceComposerClient::getPhysicalDisplayIds();
+    const auto displayToken = SurfaceComposerClient::getPhysicalDisplayToken(ids.front());
     if (displayToken == nullptr) {
         ALOGE("Failed to get display token\n");
         return -1;
