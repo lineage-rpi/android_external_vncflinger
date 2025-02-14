@@ -1,0 +1,38 @@
+cc_binary {
+    name: "vncflinger",
+    init_rc: ["etc/vncflinger.rc"],
+    srcs: [
+        "src/AndroidDesktop.cpp",
+        "src/AndroidPixelBuffer.cpp",
+        "src/AndroidSocket.cpp",
+        "src/InputDevice.cpp",
+        "src/VirtualDisplay.cpp",
+        "src/main.cpp",
+    ],
+    local_include_dirs: [
+        "src",
+    ],
+    shared_libs: [
+        "libbinder",
+        "libcrypto",
+        "libcutils",
+        "libgui",
+        "libjpeg",
+        "liblog",
+        "libssl",
+        "libui",
+        "libutils",
+        "libz",
+    ],
+    static_libs: [
+        "libtigervnc",
+    ],
+    cflags: [
+        "-DVNCFLINGER_VERSION=\"1.0\"",
+        "-Ofast",
+        "-Werror",
+        "-fexceptions",
+        "-Wno-implicit-fallthrough",
+        //"-DLOG_NDEBUG=0",
+    ],
+}
