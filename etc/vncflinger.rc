@@ -4,8 +4,8 @@ service vncflinger /system/bin/vncflinger -SecurityTypes=VncAuth -PasswordFile=/
     user system
     group system input inet readproc
 
-on property:persist.vnc.enable=true
+on property:persist.vncflinger.enabled=true
     start vncflinger
 
-on property:persist.vnc.enable=false
+on property:persist.vncflinger.enabled=false
     stop vncflinger
